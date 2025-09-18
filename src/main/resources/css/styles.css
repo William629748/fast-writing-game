@@ -1,3 +1,7 @@
+/* ========================================
+   GAME VIEW STYLES (Original)
+   ======================================== */
+
 /* Root container styling */
 .root-container {
     -fx-background-color: linear-gradient(to bottom, #f0f8ff, #e6f3ff);
@@ -166,8 +170,41 @@
     -fx-scale-y: 0.98;
 }
 
+.end-game-button {
+    -fx-background-color: linear-gradient(to bottom, #f39c12, #e67e22);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 10 20 10 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.end-game-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e67e22, #f39c12);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.back-to-menu-button {
+    -fx-background-color: linear-gradient(to bottom, #95a5a6, #7f8c8d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 8 15 8 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-cursor: hand;
+}
+
+.back-to-menu-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7f8c8d, #95a5a6);
+}
+
 .submit-button:disabled,
-.restart-button:disabled {
+.restart-button:disabled,
+.end-game-button:disabled {
     -fx-opacity: 0.6;
     -fx-cursor: default;
 }
@@ -215,18 +252,451 @@
     -fx-border-radius: 8;
 }
 
-/* Responsive design adjustments */
-@media screen and (max-width: 600px) {
-    .title-label {
-        -fx-font-size: 24px;
-    }
+/* ========================================
+   MENU VIEW STYLES
+   ======================================== */
 
-    .word-display-label {
-        -fx-font-size: 20px;
-    }
+.menu-container {
+    -fx-background-color: linear-gradient(to bottom, #667eea, #764ba2);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
 
-    .input-field {
-        -fx-font-size: 14px;
-        -fx-pref-width: 300px;
-    }
+.menu-header-section {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0 0 20 20;
+}
+
+.menu-title-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 5, 0, 2, 2);
+}
+
+.menu-welcome-label {
+    -fx-text-fill: #f8f9fa;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 1, 1);
+}
+
+.menu-buttons-section {
+    -fx-background-color: transparent;
+}
+
+.menu-play-button {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.menu-play-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #2ecc71);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 4);
+}
+
+.menu-secondary-button {
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.menu-secondary-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #2980b9, #3498db);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.menu-exit-button {
+    -fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.menu-exit-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #c0392b, #e74c3c);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.menu-footer-section {
+    -fx-background-color: rgba(0,0,0,0.1);
+}
+
+.menu-footer-label {
+    -fx-text-fill: #ecf0f1;
+}
+
+.menu-version-label {
+    -fx-text-fill: #bdc3c7;
+}
+
+/* ========================================
+   RULES VIEW STYLES
+   ======================================== */
+
+.rules-container {
+    -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.rules-header-section {
+    -fx-background-color: linear-gradient(to right, #6c5ce7, #a29bfe);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.rules-title-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 1, 1);
+}
+
+.rules-subtitle-label {
+    -fx-text-fill: #f8f9fa;
+}
+
+.rules-content-section {
+    -fx-background-color: white;
+    -fx-background-radius: 15 15 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, -2);
+}
+
+.rules-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.rules-text-area {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: transparent;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+}
+
+.rules-buttons-section {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 0 0 15 15;
+}
+
+.rules-start-button {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.rules-start-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #2ecc71);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.rules-back-button {
+    -fx-background-color: linear-gradient(to bottom, #95a5a6, #7f8c8d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.rules-back-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7f8c8d, #95a5a6);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* ========================================
+   STATISTICS VIEW STYLES
+   ======================================== */
+
+.stats-container {
+    -fx-background-color: linear-gradient(to bottom, #74b9ff, #0984e3);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.stats-header-section {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 0 0 20 20;
+}
+
+.stats-title-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 5, 0, 2, 2);
+}
+
+.stats-subtitle-label {
+    -fx-text-fill: #f8f9fa;
+}
+
+.stats-content-section {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);
+}
+
+.stats-overview-box {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 12;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.stats-level-label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.stats-rating-label {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-weight: bold;
+}
+
+.stats-grid {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.stats-category-label {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-weight: bold;
+}
+
+.stats-value-label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.stats-progress-section {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 10;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.stats-progress-label {
+    -fx-text-fill: #6c757d;
+}
+
+.stats-progress-bar {
+    -fx-accent: #2ecc71;
+}
+
+.stats-progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #2ecc71, #27ae60);
+    -fx-background-radius: 15;
+}
+
+.stats-progress-bar > .track {
+    -fx-background-color: #e9ecef;
+    -fx-background-radius: 15;
+}
+
+.stats-buttons-section {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 20 20 0 0;
+}
+
+.stats-play-button {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.stats-play-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #2ecc71);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.stats-menu-button {
+    -fx-background-color: linear-gradient(to bottom, #95a5a6, #7f8c8d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 12 25 12 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.stats-menu-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7f8c8d, #95a5a6);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Performance Rating Colors */
+.rating-beginner { -fx-text-fill: #e67e22; }
+.rating-intermediate { -fx-text-fill: #f39c12; }
+.rating-advanced { -fx-text-fill: #3498db; }
+.rating-expert { -fx-text-fill: #9b59b6; }
+.rating-master { -fx-text-fill: #e74c3c; }
+.rating-legendary { -fx-text-fill: #c0392b; -fx-font-size: 20px; }
+
+/* ========================================
+   GAME OVER VIEW STYLES
+   ======================================== */
+
+.gameover-container {
+    -fx-background-color: linear-gradient(to bottom, #fd79a8, #e84393);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.gameover-header-section {
+    -fx-background-color: rgba(0,0,0,0.2);
+    -fx-background-radius: 0 0 20 20;
+}
+
+.gameover-title-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 2, 2);
+}
+
+.gameover-subtitle-label {
+    -fx-text-fill: #f8f9fa;
+}
+
+.gameover-content-section {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);
+}
+
+.gameover-achievement-box {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 12;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.gameover-level-label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.gameover-stats-box {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+.gameover-stats-title {
+    -fx-text-fill: #495057;
+    -fx-font-weight: bold;
+}
+
+.gameover-stats-text {
+    -fx-text-fill: #6c757d;
+}
+
+.gameover-encouragement-box {
+    -fx-background-color: #fff3cd;
+    -fx-background-radius: 10;
+    -fx-border-color: #ffeaa7;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.gameover-encouragement-text {
+    -fx-text-fill: #856404;
+    -fx-font-weight: bold;
+}
+
+.encouragement-excellent {
+    -fx-background-color: #d4edda !important;
+    -fx-text-fill: #155724 !important;
+    -fx-border-color: #c3e6cb !important;
+}
+
+.encouragement-good {
+    -fx-background-color: #cce7ff !important;
+    -fx-text-fill: #004085 !important;
+    -fx-border-color: #b8daff !important;
+}
+
+.encouragement-try-again {
+    -fx-background-color: #fff3cd !important;
+    -fx-text-fill: #856404 !important;
+    -fx-border-color: #ffeaa7 !important;
+}
+
+.gameover-buttons-section {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-radius: 20 20 0 0;
+}
+
+.gameover-restart-button {
+    -fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-padding: 15 30 15 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.gameover-restart-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #27ae60, #2ecc71);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 4);
+}
+
+.gameover-secondary-button {
+    -fx-background-color: linear-gradient(to bottom, #95a5a6, #7f8c8d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-padding: 10 20 10 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.gameover-secondary-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7f8c8d, #95a5a6);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }

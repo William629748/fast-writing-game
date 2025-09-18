@@ -1,6 +1,9 @@
 /**
  * Module definition for the Fast Writing Game application.
  * Defines required modules and exported packages for JavaFX functionality.
+ *
+ * @version 2.0
+ * @since 2024
  */
 module fastwritinggame {
     requires javafx.controls;
@@ -10,8 +13,11 @@ module fastwritinggame {
     exports com.fastwriting.app;
     exports com.fastwriting.controller;
     exports com.fastwriting.model;
+    exports com.fastwriting.util;
 
     // Open packages for FXML reflection
     opens com.fastwriting.controller to javafx.fxml;
     opens com.fastwriting.app to javafx.fxml;
+    opens com.fastwriting.model to javafx.fxml;
+    opens com.fastwriting.util to javafx.fxml;
 }

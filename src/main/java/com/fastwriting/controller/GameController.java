@@ -1,6 +1,8 @@
 package com.fastwriting.controller;
 
+import com.fastwriting.model.GameStatistics;
 import com.fastwriting.model.WordGenerator;
+import com.fastwriting.util.SceneManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -12,15 +14,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
  * Controller class for the main game interface.
  * Handles game logic, user input validation, timer management, and level progression.
  *
- * @author [William Rooselbelt May Barreto]
- * @version 1.5.2
- * @since 2025
+ * @author [Your Name]
+ * @version 3.0
+ * @since 2024
  */
 public class GameController implements Initializable {
 
@@ -51,6 +54,20 @@ public class GameController implements Initializable {
      */
     @FXML
     private Button restartButton;
+
+    /**
+     * FXML button component that users click to end the game and view statistics.
+     * Connected to the FXML file through fx:id="endGameButton".
+     */
+    @FXML
+    private Button endGameButton;
+
+    /**
+     * FXML button component that users click to return to the main menu.
+     * Connected to the FXML file through fx:id="backToMenuButton".
+     */
+    @FXML
+    private Button backToMenuButton;
 
     /**
      * FXML label component that displays the remaining time for the current level.
@@ -118,6 +135,16 @@ public class GameController implements Initializable {
     private boolean gameActive;
 
     /**
+     * Game statistics tracker for performance analysis.
+     */
+    private GameStatistics gameStatistics;
+
+    /**
+     * Scene manager for navigation between windows.
+     */
+    private SceneManager sceneManager;
+
+    /**
      * Initializes the controller class. This method is automatically called
      * after the FXML file has been loaded.
      *
@@ -127,6 +154,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         wordGenerator = new WordGenerator();
+        gameStatistics = new GameStatistics();
+        sceneManager = SceneManager.getInstance();
         initializeGame();
     }
 
@@ -139,12 +168,17 @@ public class GameController implements Initializable {
         timeLimit = 20;
         gameActive = true;
 
+        // Reset game statistics
+        gameStatistics = new GameStatistics();
+        gameStatistics.setStartTime(LocalDateTime.now());
+
         updateLevelDisplay();
         loadNewWord();
         startTimer();
 
         inputTextField.setDisable(false);
         submitButton.setDisable(false);
+        endGameButton.setDisable(false);
         inputTextField.requestFocus();
 
         // Set initial feedback message with CSS styling
@@ -239,10 +273,12 @@ public class GameController implements Initializable {
         if (!gameActive) return;
 
         String userInput = inputTextField.getText();
+        gameStatistics.incrementWordsAttempted();
 
         if (userInput.equals(currentWord)) {
             handleSuccess();
         } else {
+            gameStatistics.incrementIncorrectWords();
             handleFailure("Incorrect! Try again.");
         }
     }
@@ -253,6 +289,8 @@ public class GameController implements Initializable {
      */
     private void handleSuccess() {
         currentLevel++;
+        gameStatistics.incrementCorrectWords();
+        gameStatistics.addTimeSpent(timeLimit - remainingTime);
 
         feedbackLabel.setText("Correct! Moving to level " + currentLevel +
                 " (" + wordGenerator.getDifficultyCategory(currentLevel) + ")");
@@ -271,7 +309,7 @@ public class GameController implements Initializable {
 
     /**
      * Handles input failure scenarios.
-     * Stops the game and displays appropriate feedback.
+     * Stops the game and displays game over screen.
      *
      * @param message the failure message to display
      */
@@ -279,13 +317,29 @@ public class GameController implements Initializable {
         gameActive = false;
         timeline.stop();
 
-        feedbackLabel.setText(message + " Game Over! Final level reached: " + currentLevel +
-                ". Total content: " + wordGenerator.getTotalContentCount() + " items available.");
-        feedbackLabel.getStyleClass().removeAll("feedback-success", "feedback-neutral");
-        feedbackLabel.getStyleClass().add("feedback-error");
+        gameStatistics.setEndTime(LocalDateTime.now());
+        gameStatistics.setFinalLevel(currentLevel);
 
-        inputTextField.setDisable(true);
-        submitButton.setDisable(true);
+        // Navigate to Game Over screen
+        sceneManager.setGameStatistics(gameStatistics);
+        sceneManager.showGameOverScreen();
+    }
+
+    /**
+     * Ends the game voluntarily and shows statistics.
+     */
+    private void endGameVoluntarily() {
+        gameActive = false;
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        gameStatistics.setEndTime(LocalDateTime.now());
+        gameStatistics.setFinalLevel(currentLevel);
+
+        // Navigate to Statistics screen
+        sceneManager.setGameStatistics(gameStatistics);
+        sceneManager.showStatisticsScreen();
     }
 
     /**
@@ -324,5 +378,30 @@ public class GameController implements Initializable {
             timeline.stop();
         }
         initializeGame();
+    }
+
+    /**
+     * Handles end game button clicks.
+     * Called from FXML when the end game button is clicked.
+     *
+     * @param event the action event
+     */
+    @FXML
+    private void onEndGameButtonClicked(ActionEvent event) {
+        endGameVoluntarily();
+    }
+
+    /**
+     * Handles back to menu button clicks.
+     * Called from FXML when the back to menu button is clicked.
+     *
+     * @param event the action event
+     */
+    @FXML
+    private void onBackToMenuButtonClicked(ActionEvent event) {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        sceneManager.showMainMenuScreen();
     }
 }

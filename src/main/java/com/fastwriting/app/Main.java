@@ -1,8 +1,7 @@
 package com.fastwriting.app;
 
+import com.fastwriting.util.SceneManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,37 +10,35 @@ import java.io.IOException;
  * Main application class for the Fast Writing game.
  * This class extends Application and serves as the entry point for the JavaFX application.
  *
- * @author [William Rooselbelt May Barreto]
- * @version 1.5.2
- * @since 2025
+ * @author [Your Name]
+ * @version 2.0
+ * @since 2024
  */
 public class Main extends Application {
 
     /**
-     * The main stage of the application.
+     * Scene manager instance for handling window transitions.
      */
-    private Stage primaryStage;
+    private SceneManager sceneManager;
 
     /**
-     * Starts the JavaFX application by loading the main FXML file and setting up the stage.
+     * Starts the JavaFX application by initializing the scene manager and showing the main menu.
      *
      * @param stage the primary stage for this application
      * @throws IOException if the FXML file cannot be loaded
      */
     @Override
     public void start(Stage stage) throws IOException {
-        this.primaryStage = stage;
+        // Initialize scene manager with the primary stage
+        sceneManager = SceneManager.getInstance();
+        sceneManager.setPrimaryStage(stage);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/game-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-
-        // Add CSS styling
-        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
-
+        // Configure the primary stage
         stage.setTitle("Fast Writing Game");
-        stage.setScene(scene);
         stage.setResizable(false);
-        stage.show();
+
+        // Show the main menu as the starting screen
+        sceneManager.showMainMenuScreen();
     }
 
     /**

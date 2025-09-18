@@ -1,14 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.StatisticsView"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fastwriting.controller.StatisticsController">
+    <children>
+        <!-- Header Section -->
+        <VBox alignment="CENTER" spacing="15.0" styleClass="stats-header-section">
+            <children>
+                <Label styleClass="stats-title-label" text="Game Statistics">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label styleClass="stats-subtitle-label" text="Your Performance Summary">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
 
-</AnchorPane>
+        <!-- Main Statistics Section -->
+        <VBox alignment="CENTER" spacing="25.0" styleClass="stats-content-section" VBox.vgrow="ALWAYS">
+            <children>
+                <!-- Performance Overview -->
+                <VBox alignment="CENTER" spacing="15.0" styleClass="stats-overview-box">
+                    <children>
+                        <Label fx:id="finalLevelLabel" styleClass="stats-level-label" text="Level 0">
+                            <font>
+                                <Font name="System Bold" size="36.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="performanceRatingLabel" styleClass="stats-rating-label" text="No Rating">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                    </padding>
+                </VBox>
+
+                <!-- Detailed Statistics Grid -->
+                <GridPane hgap="30.0" styleClass="stats-grid" vgap="20.0">
+                    <children>
+                        <!-- Words Statistics -->
+                        <Label styleClass="stats-category-label" text="Words Attempted:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="wordsAttemptedLabel" styleClass="stats-value-label" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <Label styleClass="stats-category-label" text="Correct Words:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="correctWordsLabel" styleClass="stats-value-label" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <Label styleClass="stats-category-label" text="Incorrect Words:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="incorrectWordsLabel" styleClass="stats-value-label" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Performance Metrics -->
+                        <Label styleClass="stats-category-label" text="Accuracy:" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="accuracyLabel" styleClass="stats-value-label" text="0.0%" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <Label styleClass="stats-category-label" text="Typing Speed:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="wpmLabel" styleClass="stats-value-label" text="0.0 WPM" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Session Information -->
+                        <Label styleClass="stats-category-label" text="Session Duration:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="sessionDurationLabel" styleClass="stats-value-label" text="0:00" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+
+                        <Label styleClass="stats-category-label" text="Start Time:" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="startTimeLabel" styleClass="stats-value-label" text="--:--:--" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                    </padding>
+                </GridPane>
+
+                <!-- Accuracy Progress Bar -->
+                <VBox alignment="CENTER" spacing="10.0" styleClass="stats-progress-section">
+                    <children>
+                        <Label styleClass="stats-progress-label" text="Accuracy Visual">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <ProgressBar fx:id="accuracyProgressBar" prefWidth="300.0" progress="0.0" styleClass="stats-progress-bar" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="40.0" right="40.0" top="10.0" />
+            </padding>
+        </VBox>
+
+        <!-- Buttons Section -->
+        <VBox alignment="CENTER" spacing="15.0" styleClass="stats-buttons-section">
+            <children>
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="playAgainButton" onAction="#onPlayAgainButtonClicked" mnemonicParsing="false" prefWidth="150.0" styleClass="stats-play-button" text="Play Again">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="backToMenuButton" onAction="#onBackToMenuButtonClicked" mnemonicParsing="false" prefWidth="150.0" styleClass="stats-menu-button" text="Main Menu">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="25.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+        </VBox>
+    </children>
+    <styleClass>
+        <String fx:value="stats-container" />
+    </styleClass>
+</VBox>
