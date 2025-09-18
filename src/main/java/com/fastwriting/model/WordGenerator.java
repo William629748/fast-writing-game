@@ -8,9 +8,9 @@ import java.util.Random;
  * Generates random words and phrases for the Fast Writing game.
  * Provides different difficulty levels with increasingly complex content.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 public class WordGenerator {
 

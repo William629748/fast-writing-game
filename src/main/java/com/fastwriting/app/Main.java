@@ -10,9 +10,9 @@ import java.io.IOException;
  * Main application class for the Fast Writing game.
  * This class extends Application and serves as the entry point for the JavaFX application.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 2.0
- * @since 2024
+ * @since 2025
  */
 public class Main extends Application {
 

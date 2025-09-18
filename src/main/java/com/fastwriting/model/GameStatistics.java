@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
  * Model class for tracking game statistics and performance metrics.
  * Stores data about player performance, timing, and accuracy during gameplay.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class GameStatistics {
 

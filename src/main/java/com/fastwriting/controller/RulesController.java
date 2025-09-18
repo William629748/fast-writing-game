@@ -15,9 +15,9 @@ import java.util.ResourceBundle;
  * Controller class for the game rules interface.
  * Displays game instructions and handles navigation back to the main menu.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class RulesController implements Initializable {
 
@@ -73,70 +73,70 @@ public class RulesController implements Initializable {
      */
     private void setupRulesContent() {
         String rulesContent = """
-            FAST WRITING GAME - RULES & INSTRUCTIONS
-            
-            ═══════════════════════════════════════════════════════════════
-            
-            📝 OBJECTIVE:
-            Type words and phrases correctly before time runs out. Advance through
-            levels to test your typing speed and accuracy!
-            
-            ⏱️ TIME LIMITS:
-            • Start with 20 seconds per level
-            • Every 5 levels completed: time decreases by 2 seconds
-            • Minimum time limit: 2 seconds per level
-            
-            🎯 DIFFICULTY LEVELS:
-            • Levels 1-10: Easy words (cat, dog, sun, moon...)
-            • Levels 11-20: Medium words (computer, technology, education...)
-            • Levels 21-30: Hard words (sophisticated, unprecedented...)
-            • Levels 31-40: Expert words (antidisestablishmentarianism...)
-            • Levels 41-50: Short phrases ("The quick brown fox jumps...")
-            • Levels 51+: Complex phrases (programming concepts, etc.)
-            
-            ⌨️ HOW TO PLAY:
-            1. A word or phrase appears on screen
-            2. Type it exactly as shown (case-sensitive!)
-            3. Press ENTER or click Submit when done
-            4. Must be completed before timer reaches zero
-            
-            ✅ SCORING SYSTEM:
-            • Correct answer: Advance to next level
-            • Wrong answer or timeout: Game Over
-            • No partial credit - must be 100% accurate
-            
-            🎮 CONTROLS:
-            • Type in the text field
-            • ENTER key or Submit button to confirm
-            • Restart button to start over
-            • End Game button to finish and view stats
-            
-            📊 STATISTICS TRACKED:
-            • Final level reached
-            • Words attempted vs correct
-            • Accuracy percentage
-            • Typing speed (Words Per Minute)
-            • Session duration
-            • Performance rating
-            
-            💡 TIPS FOR SUCCESS:
-            • Focus on accuracy over speed
-            • Pay attention to punctuation and capitalization
-            • Use proper typing technique with all fingers
-            • Don't panic when time gets low
-            • Practice regularly to improve
-            
-            🏆 PERFORMANCE RATINGS:
-            • Beginner Typist: Levels 1-9
-            • Intermediate Typist: Levels 10-19
-            • Advanced Typist: Levels 20-29
-            • Expert Typist: Levels 30-39
-            • Master Typist: Levels 40-49
-            • Legendary Typist: Level 50+
-            
-            ═══════════════════════════════════════════════════════════════
-            
-            Good luck and happy typing! 🚀
+                 FAST WRITING GAME - RULES & INSTRUCTIONS
+                           \s
+                            ===============================================================
+                           \s
+                            OBJECTIVE:
+                            Type words and phrases correctly before time runs out. Advance through
+                            levels to test your typing speed and accuracy!
+                           \s
+                            TIME LIMITS:
+                            • Start with 20 seconds per level
+                            • Every 5 levels completed: time decreases by 2 seconds
+                            • Minimum time limit: 2 seconds per level
+                           \s
+                            DIFFICULTY LEVELS:
+                            • Levels 1-10: Easy words (cat, dog, sun, moon...)
+                            • Levels 11-20: Medium words (computer, technology, education...)
+                            • Levels 21-30: Hard words (sophisticated, unprecedented...)
+                            • Levels 31-40: Expert words (antidisestablishmentarianism...)
+                            • Levels 41-50: Short phrases ("The quick brown fox jumps...")
+                            • Levels 51+: Complex phrases (programming concepts, etc.)
+                           \s
+                            HOW TO PLAY:
+                            1. A word or phrase appears on screen
+                            2. Type it exactly as shown (case-sensitive!)
+                            3. Press ENTER or click Submit when done
+                            4. Must be completed before timer reaches zero
+                           \s
+                            SCORING SYSTEM:
+                            • Correct answer: Advance to next level
+                            • Wrong answer or timeout: Game Over
+                            • No partial credit - must be 100% accurate
+                           \s
+                            CONTROLS:
+                            • Type in the text field
+                            • ENTER key or Submit button to confirm
+                            • Restart button to start over
+                            • End Game button to finish and view stats
+                           \s
+                            STATISTICS TRACKED:
+                            • Final level reached
+                            • Words attempted vs correct
+                            • Accuracy percentage
+                            • Typing speed (Words Per Minute)
+                            • Session duration
+                            • Performance rating
+                           \s
+                            TIPS FOR SUCCESS:
+                            • Focus on accuracy over speed
+                            • Pay attention to punctuation and capitalization
+                            • Use proper typing technique with all fingers
+                            • Don't panic when time gets low
+                            • Practice regularly to improve
+                           \s
+                            PERFORMANCE RATINGS:
+                            • Beginner Typist: Levels 1-9
+                            • Intermediate Typist: Levels 10-19
+                            • Advanced Typist: Levels 20-29
+                            • Expert Typist: Levels 30-39
+                            • Master Typist: Levels 40-49
+                            • Legendary Typist: Level 50+
+                           \s
+                            ===============================================================
+                           \s
+                            Good luck and happy typing!
             """;
 
         rulesTextArea.setText(rulesContent);

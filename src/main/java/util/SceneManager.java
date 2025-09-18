@@ -12,9 +12,9 @@ import java.io.IOException;
  * Utility class for managing scene transitions and window navigation.
  * Implements the Singleton pattern to maintain a single instance throughout the application.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class SceneManager {
 

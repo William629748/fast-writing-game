@@ -15,9 +15,9 @@ import java.util.ResourceBundle;
  * Controller class for the main menu interface.
  * Handles navigation to different sections of the game application.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class MenuController implements Initializable {
 

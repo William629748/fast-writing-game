@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
  * Controller class for the statistics interface.
  * Displays detailed game performance statistics and metrics.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class StatisticsController implements Initializable {
 

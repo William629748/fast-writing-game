@@ -15,9 +15,9 @@ import java.util.ResourceBundle;
  * Controller class for the game over interface.
  * Displays when the player loses the game and provides restart options.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 1.0
- * @since 2024
+ * @since 2025
  */
 public class GameOverController implements Initializable {
 
