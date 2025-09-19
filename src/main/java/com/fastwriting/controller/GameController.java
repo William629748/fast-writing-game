@@ -21,9 +21,9 @@ import java.util.ResourceBundle;
  * Controller class for the main game interface.
  * Handles game logic, user input validation, timer management, and level progression.
  *
- * @author [Your Name]
+ * @author [William Rooselbelt May Barreto]
  * @version 4.0
- * @since 2024
+ * @since 2025
  */
 public class GameController implements Initializable {
 
