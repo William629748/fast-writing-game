@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
  * Controller class for the statistics interface.
  * Displays detailed game performance statistics and metrics.
  *
- * @author [William Rooselbelt May Barreto]
+ * @author [Your Name]
  * @version 1.0
- * @since 2025
+ * @since 2024
  */
 public class StatisticsController implements Initializable {
 
@@ -211,13 +211,15 @@ public class StatisticsController implements Initializable {
     }
 
     /**
-     * Handles play again button clicks to start a new game.
+     * Handles play again button clicks to start a new game from level 1.
      * Called from FXML when the play again button is clicked.
      *
      * @param event the action event
      */
     @FXML
     private void onPlayAgainButtonClicked(ActionEvent event) {
+        // Clear the current game statistics to ensure fresh start from level 1
+        sceneManager.setGameStatistics(null);
         sceneManager.showGameScreen();
     }
 
@@ -229,6 +231,8 @@ public class StatisticsController implements Initializable {
      */
     @FXML
     private void onBackToMenuButtonClicked(ActionEvent event) {
+        // Clear the current game statistics when going back to menu
+        sceneManager.setGameStatistics(null);
         sceneManager.showMainMenuScreen();
     }
 }

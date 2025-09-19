@@ -232,24 +232,30 @@
     -fx-background-color: #d4edda !important;
     -fx-text-fill: #155724 !important;
     -fx-border-color: #c3e6cb;
-    -fx-border-width: 1;
+    -fx-border-width: 2;
     -fx-border-radius: 8;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(39,174,96,0.3), 5, 0, 0, 2);
 }
 
 .feedback-error {
     -fx-background-color: #f8d7da !important;
     -fx-text-fill: #721c24 !important;
     -fx-border-color: #f5c6cb;
-    -fx-border-width: 1;
+    -fx-border-width: 2;
     -fx-border-radius: 8;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(220,53,69,0.3), 5, 0, 0, 2);
 }
 
 .feedback-neutral {
     -fx-background-color: #fff3cd !important;
     -fx-text-fill: #856404 !important;
     -fx-border-color: #ffeaa7;
-    -fx-border-width: 1;
+    -fx-border-width: 2;
     -fx-border-radius: 8;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255,193,7,0.3), 5, 0, 0, 2);
 }
 
 /* ========================================

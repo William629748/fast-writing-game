@@ -21,9 +21,9 @@ import java.util.ResourceBundle;
  * Controller class for the main game interface.
  * Handles game logic, user input validation, timer management, and level progression.
  *
- * @author [William Rooselbelt May Barreto]
- * @version 3.0
- * @since 2025
+ * @author [Your Name]
+ * @version 4.0
+ * @since 2024
  */
 public class GameController implements Initializable {
 
@@ -145,6 +145,11 @@ public class GameController implements Initializable {
     private SceneManager sceneManager;
 
     /**
+     * Flag to track if the current word has been completed correctly.
+     */
+    private boolean currentWordCompleted;
+
+    /**
      * Initializes the controller class. This method is automatically called
      * after the FXML file has been loaded.
      *
@@ -167,6 +172,7 @@ public class GameController implements Initializable {
         currentLevel = 1;
         timeLimit = 20;
         gameActive = true;
+        currentWordCompleted = false;
 
         // Reset game statistics
         gameStatistics = new GameStatistics();
@@ -182,9 +188,7 @@ public class GameController implements Initializable {
         inputTextField.requestFocus();
 
         // Set initial feedback message with CSS styling
-        feedbackLabel.setText("Type the word above and press Enter or Submit!");
-        feedbackLabel.getStyleClass().removeAll("feedback-success", "feedback-error");
-        feedbackLabel.getStyleClass().add("feedback-neutral");
+        showFeedbackMessage("Type the word above and press Enter or Submit!", "neutral");
     }
 
     /**
@@ -195,6 +199,7 @@ public class GameController implements Initializable {
         currentWord = wordGenerator.getRandomWord(currentLevel);
         wordDisplayLabel.setText(currentWord);
         inputTextField.clear();
+        currentWordCompleted = false;
 
         // Update progress bar based on current level (max 50 levels for visual purposes)
         double progress = Math.min(1.0, currentLevel / 50.0);
@@ -203,7 +208,7 @@ public class GameController implements Initializable {
 
     /**
      * Starts the countdown timer for the current level.
-     * The timer decreases every second and validates input when it reaches zero.
+     * The timer decreases every second and ends the game when it reaches zero.
      */
     private void startTimer() {
         if (timeline != null) {
@@ -227,16 +232,26 @@ public class GameController implements Initializable {
 
         if (remainingTime <= 0) {
             timeline.stop();
-            String userInput = inputTextField.getText().trim();
-
-            if (userInput.isEmpty()) {
-                handleFailure("Time's up! No input provided.");
-            } else if (!userInput.equals(currentWord)) {
-                handleFailure("Time's up! Incorrect answer.");
-            } else {
-                handleSuccess();
-            }
+            handleTimeUp();
         }
+    }
+
+    /**
+     * Handles the event when time runs out.
+     * This is the only way the player loses the game.
+     */
+    private void handleTimeUp() {
+        gameActive = false;
+
+        gameStatistics.setEndTime(LocalDateTime.now());
+        gameStatistics.setFinalLevel(currentLevel);
+
+        // Show time up message
+        showFeedbackMessage("TIME'S UP! Game Over. Final level reached: " + currentLevel, "error");
+
+        // Navigate to Game Over screen
+        sceneManager.setGameStatistics(gameStatistics);
+        sceneManager.showGameOverScreen();
     }
 
     /**
@@ -267,62 +282,109 @@ public class GameController implements Initializable {
 
     /**
      * Validates the user's input against the current word.
-     * Handles success and failure scenarios.
+     * Shows feedback but doesn't end the game on incorrect input.
      */
     private void validateInput() {
         if (!gameActive) return;
 
-        String userInput = inputTextField.getText();
+        String userInput = inputTextField.getText().trim();
+
+        // Don't process empty input
+        if (userInput.isEmpty()) {
+            showFeedbackMessage("Please type something before submitting!", "neutral");
+            return;
+        }
+
         gameStatistics.incrementWordsAttempted();
 
         if (userInput.equals(currentWord)) {
-            handleSuccess();
+            handleCorrectAnswer();
         } else {
-            gameStatistics.incrementIncorrectWords();
-            handleFailure("Incorrect! Try again.");
+            handleIncorrectAnswer();
         }
     }
 
     /**
-     * Handles successful word completion.
-     * Advances to next level and adjusts difficulty.
+     * Handles correct answer input.
+     * Advances to the next level and continues the game.
      */
-    private void handleSuccess() {
-        currentLevel++;
+    private void handleCorrectAnswer() {
+        if (currentWordCompleted) {
+            showFeedbackMessage("You already completed this word! Waiting for next level...", "neutral");
+            return;
+        }
+
+        currentWordCompleted = true;
         gameStatistics.incrementCorrectWords();
         gameStatistics.addTimeSpent(timeLimit - remainingTime);
 
-        feedbackLabel.setText("Correct! Moving to level " + currentLevel +
-                " (" + wordGenerator.getDifficultyCategory(currentLevel) + ")");
-        feedbackLabel.getStyleClass().removeAll("feedback-error", "feedback-neutral");
-        feedbackLabel.getStyleClass().add("feedback-success");
+        currentLevel++;
+
+        showFeedbackMessage("CORRECT! Well done! Moving to level " + currentLevel +
+                " (" + wordGenerator.getDifficultyCategory(currentLevel) + ")", "success");
 
         // Increase difficulty every 5 levels until minimum time is reached
         if (currentLevel % 5 == 1 && currentLevel > 1 && timeLimit > 2) {
             timeLimit = Math.max(2, timeLimit - 2);
+            showFeedbackMessage("LEVEL UP! Time reduced to " + timeLimit + " seconds per level!", "success");
         }
 
         updateLevelDisplay();
-        loadNewWord();
-        startTimer();
+
+        // Small delay before loading next word to let user see the success message
+        Timeline delay = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> {
+            if (gameActive) {
+                loadNewWord();
+                startTimer();
+                showFeedbackMessage("New word loaded! Type it before time runs out!", "neutral");
+            }
+        }));
+        delay.play();
+
+        // Stop current timer during transition
+        if (timeline != null) {
+            timeline.stop();
+        }
     }
 
     /**
-     * Handles input failure scenarios.
-     * Stops the game and displays game over screen.
-     *
-     * @param message the failure message to display
+     * Handles incorrect answer input.
+     * Shows error message but allows player to keep trying.
      */
-    private void handleFailure(String message) {
-        gameActive = false;
-        timeline.stop();
+    private void handleIncorrectAnswer() {
+        gameStatistics.incrementIncorrectWords();
 
-        gameStatistics.setEndTime(LocalDateTime.now());
-        gameStatistics.setFinalLevel(currentLevel);
+        showFeedbackMessage("INCORRECT! Try again - you have " + remainingTime + " seconds left!", "error");
 
-        // Navigate to Game Over screen
-        sceneManager.setGameStatistics(gameStatistics);
-        sceneManager.showGameOverScreen();
+        // Clear the input field so they can try again
+        inputTextField.clear();
+        inputTextField.requestFocus();
+    }
+
+    /**
+     * Shows a feedback message with appropriate styling.
+     *
+     * @param message the message to display
+     * @param type the type of message: "success", "error", or "neutral"
+     */
+    private void showFeedbackMessage(String message, String type) {
+        feedbackLabel.setText(message);
+
+        // Remove existing style classes
+        feedbackLabel.getStyleClass().removeAll("feedback-success", "feedback-error", "feedback-neutral");
+
+        // Add appropriate style class
+        switch (type.toLowerCase()) {
+            case "success":
+                feedbackLabel.getStyleClass().add("feedback-success");
+                break;
+            case "error":
+                feedbackLabel.getStyleClass().add("feedback-error");
+                break;
+            default:
+                feedbackLabel.getStyleClass().add("feedback-neutral");
+                break;
+        }
     }
 
     /**
@@ -369,6 +431,7 @@ public class GameController implements Initializable {
     /**
      * Handles restart button clicks.
      * Called from FXML when the restart button is clicked.
+     * Restarts the game from level 1.
      *
      * @param event the action event
      */
